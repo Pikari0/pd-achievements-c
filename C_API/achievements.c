@@ -144,7 +144,7 @@ void achievements_init(PlaydateAPI* playdate_api, struct achievements_t* root, c
 				a->granted_at = s->granted_at;
 				a->progress = s->progress;
 			}
-		}		
+		}
 	}
 }
 
@@ -222,6 +222,8 @@ static void achievements_write_entry(struct achievement_t* a) {
 	add_string_property("descriptionLocked", a->description_locked);
 	add_string_property("icon", a->icon);
 	add_string_property("iconLocked", a->icon_locked);
+	if(a->is_secret)
+	    add_bool_property("isSecret", a->is_secret);
 
 	if (a->granted_at > 0) {
 		add_int_property("grantedAt", a->granted_at);
@@ -334,7 +336,7 @@ enum achievement_status achievements_set_progress(union achievement_id id, int v
 enum achievement_status achievements_grant(union achievement_id id) {
 	struct achievement_t* a = achievements_find(id);
 	if (a != NULL) {
-		return achievements_grant_internal(a);		
+		return achievements_grant_internal(a);
 	}
 	return achievement_error;
 }
