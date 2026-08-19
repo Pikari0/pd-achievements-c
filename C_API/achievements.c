@@ -250,9 +250,8 @@ void achievements_write(void) {
 	memset(&encoder, 0, sizeof(encoder));
 	e = &encoder;
 
-	achievements_copy_images();
-
 	SDFile* file = achievements_open_outfile();
+	achievements_copy_images();
 
 	pdapi->json->initEncoder(&encoder, writefile, file, 1);
 
